@@ -80,6 +80,7 @@ _ALGORITHMS = _algorithms
 
 #include <nta/algorithms/Cells4.hpp>
 #include <nta/algorithms/classifier_result.hpp>
+#include <nta/algorithms/spatial_pooler.hpp>
 #include <nta/algorithms/fast_cla_classifier.hpp>
 #include <nta/algorithms/SegmentUpdate.hpp>
 #include <nta/algorithms/OutSynapse.hpp>
@@ -2913,6 +2914,16 @@ inline PyObject* generate2DGaussianSample(nta::UInt32 nrows, nta::UInt32 ncols,
   }
 }
 
+
+%include <nta/algorithms/spatial_pooler.hpp>
+
+%extend nta::algorithms::spatial_pooler::SpatialPooler
+{
+  %pythoncode %{
+    def __init__(self, *args, **kwargs):
+      self.this = _ALGORITHMS.new_SpatialPooler(*args, **kwargs)
+  %}
+}
 
 %include <nta/algorithms/fast_cla_classifier.hpp>
 
